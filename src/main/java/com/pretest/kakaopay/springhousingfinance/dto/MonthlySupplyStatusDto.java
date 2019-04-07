@@ -1,6 +1,12 @@
 package com.pretest.kakaopay.springhousingfinance.dto;
 
-import com.pretest.kakaopay.springhousingfinance.domain.supplystatus.MonthlySupplyStatus;
+import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.MonthlySupplyInstituteData;
+import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
+
+import static com.pretest.kakaopay.springhousingfinance.vo.InstituteCode.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MonthlySupplyStatusDto {
     private Integer year;
@@ -120,8 +126,24 @@ public class MonthlySupplyStatusDto {
         this.bnk999 = bnk999;
     }
 
-    public MonthlySupplyStatus convertEntity() {
-        return new MonthlySupplyStatus();
+    public List<MonthlySupplyInstituteData> convertEntities() {
+        List<MonthlySupplyInstituteData> datas = new ArrayList<>();
+
+        datas.add(generateData(HOUSING_CITY_FUND, this.hcf));
+        datas.add(generateData(KB_BANK, this.bnk006));
+        datas.add(generateData(WR_BANK, this.bnk020));
+        datas.add(generateData(SH_BANK, this.bnk021));
+        datas.add(generateData(CT_BANK, this.bnk027));
+        datas.add(generateData(HN_BANK, this.bnk081));
+        datas.add(generateData(NH_BANK, this.bnk095));
+        datas.add(generateData(KE_BANK, this.bnk005));
+        datas.add(generateData(ETC_BANK, this.bnk999));
+
+        return datas;
+    }
+
+    private MonthlySupplyInstituteData generateData(InstituteCode instituteCode, int data) {
+        return new MonthlySupplyInstituteData(this.year, this.month, convertEntity(instituteCode), data);
     }
 
     @Override

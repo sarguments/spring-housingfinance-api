@@ -1,6 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.config;
 
-import com.pretest.kakaopay.springhousingfinance.domain.supplystatus.MonthlySupplyStatus;
+import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.MonthlySupplyInstituteData;
 import com.pretest.kakaopay.springhousingfinance.dto.MonthlySupplyStatusDto;
 import com.pretest.kakaopay.springhousingfinance.job.CsvSupplyStatusReaderBuilder;
 import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
@@ -39,7 +39,6 @@ public class BatchJobConfig {
     @PersistenceContext
     EntityManager entityManager;
 
-
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
 
@@ -72,7 +71,7 @@ public class BatchJobConfig {
     @JobScope // job 실행시점에 bean으로 등록, job 실행후 삭제
     public Step saveSupplyStatusDataStep() {
         return stepBuilderFactory.get("saveSupplyStatusDataStep")
-                .<MonthlySupplyStatusDto, MonthlySupplyStatus>chunk(CHUNK_SIZE)
+                .<MonthlySupplyStatusDto, List<MonthlySupplyInstituteData>>chunk(CHUNK_SIZE)
                 .reader(csvSupplyStatusDataReader())
                 .processor(csvSupplyStatusDataProcessor())
                 .writer(MonthlySupplyStatusJpaWriter())
@@ -90,28 +89,21 @@ public class BatchJobConfig {
     }
 
     @Bean
-    public ItemProcessor<? super MonthlySupplyStatusDto, ? extends MonthlySupplyStatus> csvSupplyStatusDataProcessor() {
-        return item -> item.convertEntity();
+    @StepScope
+    public ItemProcessor<? super MonthlySupplyStatusDto, ? extends List<MonthlySupplyInstituteData>> csvSupplyStatusDataProcessor() {
+        return item -> item.convertEntities();
     }
 
     @Bean
-    public ItemWriter<? super MonthlySupplyStatus> MonthlySupplyStatusJpaWriter() {
-        return new ItemWriter<MonthlySupplyStatus>() {
-            @Override
-            public void write(List<? extends MonthlySupplyStatus> items) throws Exception {
-                for (MonthlySupplyStatus item : items) {
-                    logger.debug("item : {}", item);
-                }
-            }
-        };
+    @StepScope
+    public ItemWriter<? super List<MonthlySupplyInstituteData>> MonthlySupplyStatusJpaWriter() {
+        return items -> items.stream().forEach(i -> save(i));
     }
 
-
-    private  <T> void save(List<T> entities) {
-        for (T t : entities) {
+    private <T> void save(List<T> entities) {
+        for (T t : entities)
             entityManager.persist(t);
 
-        }
         entityManager.flush();
         entityManager.clear();
     }

@@ -23,4 +23,8 @@ public class JobTest extends AcceptanceTest {
         logger.debug("institute : {}", supplyInstitute);
         softly.assertThat(supplyInstitute.equals(new SupplyInstitute(instituteCode.getInstituteCode(), instituteCode.getInstituteName()))).isTrue();
     }
+
+    @Test
+    public void monthlySupplyInstituteDataTest() {
+    }
 }

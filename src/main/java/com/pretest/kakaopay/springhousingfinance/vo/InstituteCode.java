@@ -38,10 +38,14 @@ public enum InstituteCode {
         return Arrays.stream(InstituteCode.values()).map(i -> i.instituteCode).collect(Collectors.toList());
     }
 
+    public static SupplyInstitute convertEntity(InstituteCode instituteCode) {
+        return new SupplyInstitute(instituteCode.instituteCode, instituteCode.instituteName);
+    }
+
     public static List<SupplyInstitute> convertEntities() {
         List<SupplyInstitute> entities = new ArrayList<>();
         for (InstituteCode value : values()) {
-            entities.add(new SupplyInstitute(value.instituteCode, value.instituteName));
+            entities.add(convertEntity(value));
         }
         return entities;
     }
