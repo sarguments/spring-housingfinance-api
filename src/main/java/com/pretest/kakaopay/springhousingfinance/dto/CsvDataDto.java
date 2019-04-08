@@ -1,14 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.dto;
 
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.MonthlySupplyInstituteData;
-import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
-
-import static com.pretest.kakaopay.springhousingfinance.vo.InstituteCode.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class MonthlySupplyStatusDto {
+public class CsvDataDto {
     private Integer year;
     private Integer month;
     private Integer hcf;
@@ -109,10 +101,10 @@ public class MonthlySupplyStatusDto {
         this.bnk999 = bnk999;
     }
 
-    public MonthlySupplyStatusDto() {
+    public CsvDataDto() {
     }
 
-    public MonthlySupplyStatusDto(Integer year, Integer month, Integer hcf, Integer bnk006, Integer bnk020, Integer bnk021, Integer bnk027, Integer bnk081, Integer bnk095, Integer bnk005, Integer bnk999) {
+    public CsvDataDto(Integer year, Integer month, Integer hcf, Integer bnk006, Integer bnk020, Integer bnk021, Integer bnk027, Integer bnk081, Integer bnk095, Integer bnk005, Integer bnk999) {
         this.year = year;
         this.month = month;
         this.hcf = hcf;
@@ -126,31 +118,11 @@ public class MonthlySupplyStatusDto {
         this.bnk999 = bnk999;
     }
 
-    public List<MonthlySupplyInstituteData> convertEntities() {
-        List<MonthlySupplyInstituteData> datas = new ArrayList<>();
-
-        datas.add(generateData(HOUSING_CITY_FUND, this.hcf));
-        datas.add(generateData(KB_BANK, this.bnk006));
-        datas.add(generateData(WR_BANK, this.bnk020));
-        datas.add(generateData(SH_BANK, this.bnk021));
-        datas.add(generateData(CT_BANK, this.bnk027));
-        datas.add(generateData(HN_BANK, this.bnk081));
-        datas.add(generateData(NH_BANK, this.bnk095));
-        datas.add(generateData(KE_BANK, this.bnk005));
-        datas.add(generateData(ETC_BANK, this.bnk999));
-
-        return datas;
-    }
-
-    private MonthlySupplyInstituteData generateData(InstituteCode instituteCode, int data) {
-        return new MonthlySupplyInstituteData(this.year, this.month, convertEntity(instituteCode), data);
-    }
-
     @Override
     public String toString() {
-        return "MonthlySupplyStatusDto{" +
-                "year=" + year +
-                ", month=" + month +
+        return "CsvDataDto{" +
+                "yeardata=" + year +
+                ", yearlydata=" + month +
                 ", hcf=" + hcf +
                 ", bnk006=" + bnk006 +
                 ", bnk020=" + bnk020 +

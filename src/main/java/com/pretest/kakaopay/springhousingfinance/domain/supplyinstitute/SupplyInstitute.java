@@ -1,8 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.domain.supplyinstitute;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -21,11 +19,14 @@ public class SupplyInstitute {
         this.instituteName = instituteName;
     }
 
+    public String getInstituteCode() {
+        return instituteCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         SupplyInstitute that = (SupplyInstitute) o;
-        return Objects.equals(instituteCode, that.instituteCode) &&
-                Objects.equals(instituteName, that.instituteName);
+        return this.instituteCode.equals(that.instituteCode);
     }
 
     @Override

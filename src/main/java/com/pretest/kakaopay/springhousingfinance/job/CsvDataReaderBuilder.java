@@ -1,6 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.job;
 
-import com.pretest.kakaopay.springhousingfinance.dto.MonthlySupplyStatusDto;
+import com.pretest.kakaopay.springhousingfinance.dto.CsvDataDto;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -14,35 +14,35 @@ import java.beans.PropertyEditor;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CsvSupplyStatusReaderBuilder {
+public class CsvDataReaderBuilder {
     private Resource resource;
     private int skipLineNum;
     private String[] names;
 
-    private CsvSupplyStatusReaderBuilder() {
+    private CsvDataReaderBuilder() {
     }
 
-    public static CsvSupplyStatusReaderBuilder init() {
-        return new CsvSupplyStatusReaderBuilder();
+    public static CsvDataReaderBuilder init() {
+        return new CsvDataReaderBuilder();
     }
 
-    public CsvSupplyStatusReaderBuilder resource(Resource resource) {
+    public CsvDataReaderBuilder resource(Resource resource) {
         this.resource = resource;
         return this;
     }
 
-    public CsvSupplyStatusReaderBuilder lineToSkip(int skipLineNum) {
+    public CsvDataReaderBuilder lineToSkip(int skipLineNum) {
         this.skipLineNum = skipLineNum;
         return this;
     }
 
-    public CsvSupplyStatusReaderBuilder names(String[] names) {
+    public CsvDataReaderBuilder names(String[] names) {
         this.names = names;
         return this;
     }
 
-    public FlatFileItemReader<MonthlySupplyStatusDto> build() {
-        FlatFileItemReader<MonthlySupplyStatusDto> reader = new FlatFileItemReader();
+    public FlatFileItemReader<CsvDataDto> build() {
+        FlatFileItemReader<CsvDataDto> reader = new FlatFileItemReader();
         reader.setResource(this.resource);
         reader.setLinesToSkip(this.skipLineNum);
         reader.setLineMapper(generateLineMapper(this.names));
@@ -50,8 +50,8 @@ public class CsvSupplyStatusReaderBuilder {
         return reader;
     }
 
-    private LineMapper<MonthlySupplyStatusDto> generateLineMapper(String[] values) {
-        return new DefaultLineMapper<MonthlySupplyStatusDto>() {
+    private LineMapper<CsvDataDto> generateLineMapper(String[] values) {
+        return new DefaultLineMapper<CsvDataDto>() {
             {
                 setLineTokenizer(generateLineTokenizer(values));
                 setFieldSetMapper(generateFieldSetMapper());
@@ -67,11 +67,11 @@ public class CsvSupplyStatusReaderBuilder {
         };
     }
 
-    private FieldSetMapper<MonthlySupplyStatusDto> generateFieldSetMapper() {
-        return new BeanWrapperFieldSetMapper<MonthlySupplyStatusDto>() {
+    private FieldSetMapper<CsvDataDto> generateFieldSetMapper() {
+        return new BeanWrapperFieldSetMapper<CsvDataDto>() {
             {
                 setCustomEditors(generateEditors());
-                setTargetType(MonthlySupplyStatusDto.class);
+                setTargetType(CsvDataDto.class);
             }
         };
     }
