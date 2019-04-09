@@ -1,14 +1,13 @@
-package com.pretest.kakaopay.springhousingfinance.domain.monthlydata;
+package com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply;
 
-import com.pretest.kakaopay.springhousingfinance.domain.yearlydata.InstituteYearlyData;
-import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(InstituteMonthlyDataId.class)
-public class InstituteMonthlyData {
+@IdClass(InstituteMonthlySupplyId.class)
+public class InstituteMonthlySupply {
     @Id
     private int year;
 
@@ -26,31 +25,31 @@ public class InstituteMonthlyData {
             @JoinColumn(name = "year", updatable = false, insertable = false),
             @JoinColumn(name = "instituteCode", updatable = false, insertable = false)
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private InstituteYearlyData instituteYearlyData;
+    private YearlyInstituteSupply yearlyInstituteSupply;
 
-    public InstituteMonthlyData() {
+    public InstituteMonthlySupply() {
     }
 
-    public InstituteMonthlyData(int year, String instituteCode, int month, int monthlyData) {
+    public InstituteMonthlySupply(int year, String instituteCode, int month, int monthlyData) {
         this.year = year;
         this.instituteCode = instituteCode;
         this.month = month;
         this.monthlyData = monthlyData;
     }
 
-    public InstituteYearlyData getInstituteYearlyData() {
-        return instituteYearlyData;
+    public YearlyInstituteSupply getYearlyInstituteSupply() {
+        return yearlyInstituteSupply;
     }
 
-    public void setInstituteYearlyData(InstituteYearlyData instituteYearlyData) {
-        this.instituteYearlyData = instituteYearlyData;
+    public void setYearlyInstituteSupply(YearlyInstituteSupply yearlyInstituteSupply) {
+        this.yearlyInstituteSupply = yearlyInstituteSupply;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InstituteMonthlyData that = (InstituteMonthlyData) o;
+        InstituteMonthlySupply that = (InstituteMonthlySupply) o;
         return year == that.year &&
                 month == that.month &&
                 monthlyData == that.monthlyData &&
@@ -64,12 +63,12 @@ public class InstituteMonthlyData {
 
     @Override
     public String toString() {
-        return "InstituteMonthlyData{" +
+        return "InstituteMonthlySupply{" +
                 "year=" + year +
                 ", instituteCode='" + instituteCode + '\'' +
                 ", month=" + month +
                 ", monthlyData=" + monthlyData +
-                ", instituteYearlyData=" + instituteYearlyData +
+                ", yearlyInstituteSupply=" + yearlyInstituteSupply +
                 '}';
     }
 }

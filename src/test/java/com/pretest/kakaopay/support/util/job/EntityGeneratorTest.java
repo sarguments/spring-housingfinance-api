@@ -1,6 +1,6 @@
-package com.pretest.kakaopay.support.util.dto;
+package com.pretest.kakaopay.support.util.job;
 
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.InstituteMonthlyData;
+import com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply.InstituteMonthlySupply;
 import com.pretest.kakaopay.springhousingfinance.dto.CsvDataDto;
 import com.pretest.kakaopay.support.test.BaseTest;
 import org.junit.Test;
@@ -15,10 +15,10 @@ public class EntityGeneratorTest extends BaseTest {
     @Test
     public void generateMonthlyDatas() {
         CsvDataDto dataDto = CSV_DATA_DTO_FIXTURE;
-        List<InstituteMonthlyData> dataList = EntityGenerator.generateMonthlyDatas(dataDto);
+        List<InstituteMonthlySupply> dataList = EntityGenerator.generateMonthlyDatas(dataDto);
 
-        for (InstituteMonthlyData instituteMonthlyData : dataList) {
-            logger.debug("data : {}", instituteMonthlyData);
+        for (InstituteMonthlySupply instituteMonthlySupply : dataList) {
+            logger.debug("data : {}", instituteMonthlySupply);
         }
     }
 }

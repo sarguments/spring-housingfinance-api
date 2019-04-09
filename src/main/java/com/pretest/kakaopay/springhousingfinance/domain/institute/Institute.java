@@ -1,20 +1,22 @@
-package com.pretest.kakaopay.springhousingfinance.domain.supplyinstitute;
+package com.pretest.kakaopay.springhousingfinance.domain.institute;
+
+import com.pretest.kakaopay.springhousingfinance.dto.InstituteDto;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class SupplyInstitute {
+public class Institute {
     @Id
     private String instituteCode;
 
     @Column
     private String instituteName;
 
-    public SupplyInstitute() {
+    public Institute() {
     }
 
-    public SupplyInstitute(String instituteCode, String instituteName) {
+    public Institute(String instituteCode, String instituteName) {
         this.instituteCode = instituteCode;
         this.instituteName = instituteName;
     }
@@ -23,9 +25,13 @@ public class SupplyInstitute {
         return instituteCode;
     }
 
+    public String getInstituteName() {
+        return instituteName;
+    }
+
     @Override
     public boolean equals(Object o) {
-        SupplyInstitute that = (SupplyInstitute) o;
+        Institute that = (Institute) o;
         return this.instituteCode.equals(that.instituteCode);
     }
 
@@ -36,9 +42,13 @@ public class SupplyInstitute {
 
     @Override
     public String toString() {
-        return "SupplyInstitute{" +
+        return "Institute{" +
                 "instituteCode='" + instituteCode + '\'' +
                 ", instituteName='" + instituteName + '\'' +
                 '}';
+    }
+
+    public InstituteDto toDto() {
+        return new InstituteDto(this.instituteName, this.instituteCode);
     }
 }

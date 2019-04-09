@@ -121,8 +121,8 @@ public class CsvDataDto {
     @Override
     public String toString() {
         return "CsvDataDto{" +
-                "yeardata=" + year +
-                ", yearlydata=" + month +
+                "yearlysupply=" + year +
+                ", yearlyinstitutesupply=" + month +
                 ", hcf=" + hcf +
                 ", bnk006=" + bnk006 +
                 ", bnk020=" + bnk020 +

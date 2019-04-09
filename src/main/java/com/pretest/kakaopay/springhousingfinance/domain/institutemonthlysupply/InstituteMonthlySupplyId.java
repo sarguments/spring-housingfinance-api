@@ -1,21 +1,21 @@
-package com.pretest.kakaopay.springhousingfinance.domain.monthlydata;
+package com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class InstituteMonthlyDataId implements Serializable {
+public class InstituteMonthlySupplyId implements Serializable {
     private int year;
     private String instituteCode;
     private int month;
 
-    public InstituteMonthlyDataId() {
+    public InstituteMonthlySupplyId() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InstituteMonthlyDataId that = (InstituteMonthlyDataId) o;
+        InstituteMonthlySupplyId that = (InstituteMonthlySupplyId) o;
         return year == that.year &&
                 month == that.month &&
                 Objects.equals(instituteCode, that.instituteCode);

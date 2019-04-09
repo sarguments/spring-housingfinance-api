@@ -1,8 +1,8 @@
-package com.pretest.kakaopay.support.util.dto;
+package com.pretest.kakaopay.support.util.job;
 
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.InstituteMonthlyData;
-import com.pretest.kakaopay.springhousingfinance.domain.yeardata.YearData;
-import com.pretest.kakaopay.springhousingfinance.domain.yearlydata.InstituteYearlyData;
+import com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply.InstituteMonthlySupply;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlysupply.YearlySupply;
 import com.pretest.kakaopay.springhousingfinance.dto.CsvDataDto;
 import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
 
@@ -12,8 +12,8 @@ import java.util.List;
 import static com.pretest.kakaopay.springhousingfinance.vo.InstituteCode.*;
 
 public class EntityGenerator {
-    public static List<InstituteMonthlyData> generateMonthlyDatas(CsvDataDto csvDataDto) {
-        List<InstituteMonthlyData> datas = new ArrayList<>();
+    public static List<InstituteMonthlySupply> generateMonthlyDatas(CsvDataDto csvDataDto) {
+        List<InstituteMonthlySupply> datas = new ArrayList<>();
 
         datas.add(generateMonthlyData(csvDataDto.getMonth(), csvDataDto.getHcf(), csvDataDto.getYear(), HOUSING_CITY_FUND));
         datas.add(generateMonthlyData(csvDataDto.getMonth(), csvDataDto.getBnk006(), csvDataDto.getYear(), KB_BANK));
@@ -28,17 +28,17 @@ public class EntityGenerator {
         return datas;
     }
 
-    private static InstituteMonthlyData generateMonthlyData(Integer month, Integer monthlyData, Integer year, InstituteCode instituteCode) {
-        InstituteMonthlyData data = new InstituteMonthlyData(year, instituteCode.getInstituteCode(), month, monthlyData);
-        data.setInstituteYearlyData(generateYearlyData(year, instituteCode));
+    private static InstituteMonthlySupply generateMonthlyData(Integer month, Integer monthlyData, Integer year, InstituteCode instituteCode) {
+        InstituteMonthlySupply data = new InstituteMonthlySupply(year, instituteCode.getInstituteCode(), month, monthlyData);
+        data.setYearlyInstituteSupply(generateYearlyData(year, instituteCode));
 
         return data;
     }
 
-    private static InstituteYearlyData generateYearlyData(Integer year, InstituteCode instituteCode) {
-        InstituteYearlyData data = new InstituteYearlyData(year, instituteCode.getInstituteCode());
-        data.setYearData(new YearData(year));
-        data.setSupplyInstitute(instituteCode.convertEntity());
+    private static YearlyInstituteSupply generateYearlyData(Integer year, InstituteCode instituteCode) {
+        YearlyInstituteSupply data = new YearlyInstituteSupply(year, instituteCode.getInstituteCode());
+        data.setYearlySupply(new YearlySupply(year));
+        data.setInstitute(instituteCode.convertEntity());
         return data;
     }
 }

@@ -1,9 +1,10 @@
 package com.pretest.kakaopay.springhousingfinance.job;
 
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.InstituteMonthlyData;
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.InstituteMonthlyDataRepository;
-import com.pretest.kakaopay.springhousingfinance.domain.supplyinstitute.SupplyInstitute;
-import com.pretest.kakaopay.springhousingfinance.domain.supplyinstitute.SupplyInstituteRepository;
+import com.pretest.kakaopay.springhousingfinance.domain.institute.Institute;
+import com.pretest.kakaopay.springhousingfinance.domain.institute.InstituteRepository;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupplyId;
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupplyRepository;
 import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
 import com.pretest.kakaopay.support.test.AcceptanceTest;
 import org.junit.Test;
@@ -11,33 +12,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 public class JobTest extends AcceptanceTest {
     private static final Logger logger = LoggerFactory.getLogger(JobTest.class);
 
     @Autowired
-    private SupplyInstituteRepository supplyInstituteRepository;
+    private InstituteRepository instituteRepository;
 
     @Autowired
-    private InstituteMonthlyDataRepository instituteMonthlyDataRepository;
+    private YearlyInstituteSupplyRepository yearlyInstituteSupplyRepository;
 
     @Test
     public void supplyInstitutesTest() {
         InstituteCode instituteCode = InstituteCode.CT_BANK;
-        SupplyInstitute supplyInstitute = supplyInstituteRepository.findById(instituteCode.getInstituteCode()).get();
+        Institute institute = instituteRepository.findById(instituteCode.getInstituteCode()).get();
 
-        logger.debug("institute : {}", supplyInstitute);
-        softly.assertThat(supplyInstitute.equals(instituteCode.convertEntity())).isTrue();
+        logger.debug("institute : {}", institute);
+        softly.assertThat(institute.equals(instituteCode.convertEntity())).isTrue();
     }
 
     @Test
-    public void monthlySupplyInstituteDataTest() {
-//        int yeardata = 2017;
-//        List<InstituteMonthlyData> datas = instituteMonthlyDataRepository.findByYear(yeardata);
-//
-//        for (InstituteMonthlyData data : datas) {
-//            logger.debug("data : {}", data);
-//        }
+    public void instituteYearlyDataTest() {
+        int year = 2017;
+        String instituteCode = InstituteCode.WR_BANK.getInstituteCode();
+        YearlyInstituteSupply data = yearlyInstituteSupplyRepository.findById(new YearlyInstituteSupplyId(year, instituteCode)).get();
+
+        logger.debug("data : {}", data.getInstitute().getInstituteCode());
+        softly.assertThat(data.getYearlySupply().getYear()).isEqualTo(year);
     }
 }

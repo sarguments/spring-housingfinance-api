@@ -1,9 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.config;
 
-import com.pretest.kakaopay.springhousingfinance.domain.monthlydata.InstituteMonthlyData;
-import com.pretest.kakaopay.springhousingfinance.domain.supplyinstitute.SupplyInstitute;
-import com.pretest.kakaopay.springhousingfinance.domain.yeardata.YearData;
-import com.pretest.kakaopay.springhousingfinance.domain.yearlydata.InstituteYearlyData;
+import com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply.InstituteMonthlySupply;
 import com.pretest.kakaopay.springhousingfinance.dto.CsvDataDto;
 import com.pretest.kakaopay.springhousingfinance.job.CsvDataProcessor;
 import com.pretest.kakaopay.springhousingfinance.job.CsvDataReaderBuilder;
@@ -30,7 +27,6 @@ import org.springframework.core.io.ClassPathResource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Configuration
@@ -63,7 +59,7 @@ public class BatchJobConfig {
     @JobScope // job 실행시점에 bean으로 등록, job 실행후 삭제
     public Step saveSupplyStatusDataStep() {
         return stepBuilderFactory.get("saveSupplyStatusDataStep")
-                .<CsvDataDto, List<InstituteMonthlyData>>chunk(CHUNK_SIZE)
+                .<CsvDataDto, List<InstituteMonthlySupply>>chunk(CHUNK_SIZE)
                 .reader(csvSupplyStatusDataReader())
                 .processor(csvSupplyStatusDataProcessor())
                 .writer(MonthlySupplyStatusJpaWriter())
@@ -76,25 +72,25 @@ public class BatchJobConfig {
         return CsvDataReaderBuilder.init()
                 .resource(csvResource)
                 .lineToSkip(SKIP_LINE)
-                .names(generateLine(new String[]{"yeardata", "month"}, InstituteCode.getCodes()))
+                .names(generateLine(new String[]{"year", "month"}, InstituteCode.getCodes()))
                 .build();
     }
 
     @Bean
     @StepScope
-    public ItemProcessor<? super CsvDataDto, ? extends List<InstituteMonthlyData>> csvSupplyStatusDataProcessor() {
+    public ItemProcessor<? super CsvDataDto, ? extends List<InstituteMonthlySupply>> csvSupplyStatusDataProcessor() {
         return new CsvDataProcessor();
     }
 
     @Bean
     @StepScope
-    public ItemWriter<? super List<InstituteMonthlyData>> MonthlySupplyStatusJpaWriter() {
+    public ItemWriter<? super List<InstituteMonthlySupply>> MonthlySupplyStatusJpaWriter() {
         return items -> items.stream().forEach(item -> save(item));
     }
 
-    private void save(List<InstituteMonthlyData> entities) {
-        for (InstituteMonthlyData d : entities) {
-            entityManager.merge(d);
+    private <T> void save(List<T> entities) {
+        for (T t : entities) {
+            entityManager.merge(t);
         }
         entityManager.flush();
         entityManager.close();

@@ -1,20 +1,25 @@
-package com.pretest.kakaopay.springhousingfinance.domain.yearlydata;
+package com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class InstituteYearlyDataId implements Serializable {
+public class YearlyInstituteSupplyId implements Serializable {
     private int year;
     private String instituteCode;
 
-    public InstituteYearlyDataId() {
+    public YearlyInstituteSupplyId() {
+    }
+
+    public YearlyInstituteSupplyId(int year, String instituteCode) {
+        this.year = year;
+        this.instituteCode = instituteCode;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InstituteYearlyDataId that = (InstituteYearlyDataId) o;
+        YearlyInstituteSupplyId that = (YearlyInstituteSupplyId) o;
         return year == that.year &&
                 Objects.equals(instituteCode, that.instituteCode);
     }
