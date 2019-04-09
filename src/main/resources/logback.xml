@@ -7,7 +7,7 @@
         </layout>
     </appender>
 
-    <logger name="com.pretest.kakaopay" level="DEBUG"/>
+    <logger name="com.pretest.kakaopay" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>

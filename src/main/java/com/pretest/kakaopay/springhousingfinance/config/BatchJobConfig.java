@@ -45,7 +45,7 @@ public class BatchJobConfig {
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
-    @Value("csv/supply_status_data.csv")
+    @Value("${csv.data}")
     private ClassPathResource csvResource;
 
     @Bean

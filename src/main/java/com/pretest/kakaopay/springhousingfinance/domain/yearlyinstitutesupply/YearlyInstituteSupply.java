@@ -3,6 +3,7 @@ package com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply;
 import com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply.InstituteMonthlySupply;
 import com.pretest.kakaopay.springhousingfinance.domain.institute.Institute;
 import com.pretest.kakaopay.springhousingfinance.domain.yearlysupply.YearlySupply;
+import com.pretest.kakaopay.springhousingfinance.dto.YearlySupplyAvgDto;
 import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
 
 import javax.persistence.*;
@@ -47,14 +48,6 @@ public class YearlyInstituteSupply {
         this.instituteMonthlySupplies = instituteMonthlySupplies;
     }
 
-    public YearlySupply getYearlySupply() {
-        return yearlySupply;
-    }
-
-    public Institute getInstitute() {
-        return institute;
-    }
-
     public void setYearlySupply(YearlySupply yearlySupply) {
         this.yearlySupply = yearlySupply;
     }
@@ -75,6 +68,17 @@ public class YearlyInstituteSupply {
         return total;
     }
 
+    public YearlySupplyAvgDto toYearlySupplyAvgDto() {
+        return new YearlySupplyAvgDto(
+                this.year,
+                Math.round(calcTotalAmount() / this.instituteMonthlySupplies.size())
+        );
+    }
+
+    public boolean is12Months() {
+        return this.instituteMonthlySupplies.size() == 12;
+    }
+
     @Override
     public boolean equals(Object o) {
         YearlyInstituteSupply that = (YearlyInstituteSupply) o;
@@ -92,8 +96,6 @@ public class YearlyInstituteSupply {
         return "YearlyInstituteSupply{" +
                 "year=" + year +
                 ", instituteCode='" + instituteCode + '\'' +
-                ", yearlySupply=" + yearlySupply +
-                ", institute=" + institute +
                 '}';
     }
 }

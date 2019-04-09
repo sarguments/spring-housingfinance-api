@@ -36,7 +36,6 @@ public class JobTest extends AcceptanceTest {
         String instituteCode = InstituteCode.WR_BANK.getInstituteCode();
         YearlyInstituteSupply data = yearlyInstituteSupplyRepository.findById(new YearlyInstituteSupplyId(year, instituteCode)).get();
 
-        logger.debug("data : {}", data.getInstitute().getInstituteCode());
-        softly.assertThat(data.getYearlySupply().getYear()).isEqualTo(year);
+        logger.debug("data : {}", data);
     }
 }

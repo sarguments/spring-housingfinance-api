@@ -8,31 +8,18 @@ public class YearlySupplyDto implements Comparable<YearlySupplyDto> {
     private int year;
     private int totalAmount;
     private Map<String, Integer> detailAmount;
-
-
     private String maximumSupplyBank;
     private int maximumSupplyValue;
 
     public YearlySupplyDto() {
     }
 
-    public YearlySupplyDto(int year, Map<String, Integer> detailAmount, int totalAmount) {
+    public YearlySupplyDto(int year, Map<String, Integer> detailAmount, int totalAmount, String bank, int maxValue) {
         this.year = year;
         this.totalAmount = totalAmount;
         this.detailAmount = detailAmount;
-        findMaxSupply();
-    }
-
-    private void findMaxSupply() {
-        this.maximumSupplyValue = 0;
-        this.maximumSupplyBank = "none";
-
-        for (String bank : detailAmount.keySet()) {
-            if (this.maximumSupplyValue < detailAmount.get(bank)) {
-                this.maximumSupplyValue = detailAmount.get(bank);
-                this.maximumSupplyBank = bank;
-            }
-        }
+        this.maximumSupplyBank = bank;
+        this.maximumSupplyValue = maxValue;
     }
 
     @JsonIgnore

@@ -13,6 +13,8 @@ public class CsvDataDto {
     private Integer bnk005;
     private Integer bnk999;
 
+    public void set(String s) { }
+
     public Integer getYear() {
         return year;
     }

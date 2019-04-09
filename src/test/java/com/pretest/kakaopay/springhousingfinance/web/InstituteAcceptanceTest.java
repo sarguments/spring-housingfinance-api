@@ -1,5 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.web;
 
+import com.pretest.kakaopay.springhousingfinance.dto.YearlySupplyAvgsDto;
 import com.pretest.kakaopay.springhousingfinance.dto.InstitutesDto;
 import com.pretest.kakaopay.support.test.AcceptanceTest;
 import com.pretest.kakaopay.support.test.RestJsonDataBuilder;
@@ -25,4 +26,15 @@ public class InstituteAcceptanceTest extends AcceptanceTest {
         logger.debug("instituteDto : {}", institutesDto);
     }
 
+    @Test
+    public void instituteYearlyAvg() {
+        restJsonDataBuilder = new RestJsonDataBuilder("/institutes/bnk005/avgs");
+
+        ResponseEntity<YearlySupplyAvgsDto> response = template().getForEntity(restJsonDataBuilder.getLocation(), YearlySupplyAvgsDto.class);
+        softly.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        YearlySupplyAvgsDto ysas = response.getBody();
+        softly.assertThat(ysas.getBank()).isEqualTo("외환은행");
+        logger.debug("yearlySupplyAvgsDto : {}", ysas);
+    }
 }

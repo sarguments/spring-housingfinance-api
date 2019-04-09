@@ -1,18 +1,24 @@
 package com.pretest.kakaopay.springhousingfinance.domain.institute;
 
+import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
 import com.pretest.kakaopay.springhousingfinance.dto.InstituteDto;
-import com.pretest.kakaopay.support.domain.AbstractDomain;
+import com.pretest.kakaopay.springhousingfinance.dto.YearlySupplyAvgsDto;
+import static com.pretest.kakaopay.support.util.ConverterUtil.generateYearlyAvgsDto;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-public class Institute extends AbstractDomain {
+public class Institute {
     @Id
     private String instituteCode;
 
     @Column
     private String instituteName;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "institute")
+    private Set<YearlyInstituteSupply> yearlyInstituteSupplies;
 
     public Institute() {
     }
@@ -22,12 +28,14 @@ public class Institute extends AbstractDomain {
         this.instituteName = instituteName;
     }
 
-    public String getInstituteCode() {
-        return instituteCode;
+    public Institute(String instituteCode, String instituteName, Set<YearlyInstituteSupply> yearlyInstituteSupplies) {
+        this.instituteCode = instituteCode;
+        this.instituteName = instituteName;
+        this.yearlyInstituteSupplies = yearlyInstituteSupplies;
     }
 
-    public String getInstituteName() {
-        return instituteName;
+    public InstituteDto toDto() {
+        return new InstituteDto(this.instituteName, this.instituteCode);
     }
 
     @Override
@@ -41,16 +49,20 @@ public class Institute extends AbstractDomain {
         return Objects.hash(instituteCode, instituteName);
     }
 
+    public YearlySupplyAvgsDto toYearlySupplyAvgsDto() {
+        return new YearlySupplyAvgsDto(
+                this.instituteName,
+                generateYearlyAvgsDto(this.yearlyInstituteSupplies)
+        );
+    }
+
+
     @Override
     public String toString() {
         return "Institute{" +
                 "instituteCode='" + instituteCode + '\'' +
                 ", instituteName='" + instituteName + '\'' +
+                ", yearlyInstituteSupplies=" + yearlyInstituteSupplies +
                 '}';
-    }
-
-    @Override
-    public InstituteDto toDto() {
-        return new InstituteDto(this.instituteName, this.instituteCode);
     }
 }

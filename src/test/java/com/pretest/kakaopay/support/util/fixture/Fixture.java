@@ -40,12 +40,6 @@ public class Fixture {
             84
     );
 
-    // Institute
-    protected static Institute INSTITUTE_FIXTURE = new Institute(
-            InstituteCode.KE_BANK.getInstituteCode(),
-            InstituteCode.KE_BANK.getInstituteName()
-    );
-
     // InstituteMonthlySupply
     protected static InstituteMonthlySupply INSTITUTE_MONTHLY_SUPPLY_1_1 = new InstituteMonthlySupply(YEAR, HCF, 1, 6159);
     protected static InstituteMonthlySupply INSTITUTE_MONTHLY_SUPPLY_1_2 = new InstituteMonthlySupply(YEAR, HCF, 2, 8290);
@@ -326,4 +320,10 @@ public class Fixture {
     // YearlySupply
     protected static YearlySupply YEARLY_SUPPLY_FIXTURE = new YearlySupply(YEAR, YEARLY_INSTITUTE_SUPPLIES_FIXTURE);
 
+    // Institute
+    protected static Institute INSTITUTE_FIXTURE = new Institute(
+            InstituteCode.KE_BANK.getInstituteCode(),
+            InstituteCode.KE_BANK.getInstituteName(),
+            new HashSet<>(Arrays.asList(YEARLY_INSTITUTE_SUPPLY_FIXTURE_8))
+    );
 }

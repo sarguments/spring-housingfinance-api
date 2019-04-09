@@ -20,7 +20,6 @@ public class YearlySupplyController {
         return yearlySupplyService.yearlySupplies();
     }
 
-
     @GetMapping("/institutes/max")
     public YearMaxSupplyInstituteDto yearMaxSupplyInstitute() {
         return yearlySupplyService.findYearMaxSupplyInstitute();

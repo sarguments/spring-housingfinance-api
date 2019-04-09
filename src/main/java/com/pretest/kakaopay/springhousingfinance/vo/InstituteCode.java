@@ -2,7 +2,6 @@ package com.pretest.kakaopay.springhousingfinance.vo;
 
 import com.pretest.kakaopay.springhousingfinance.domain.institute.Institute;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,13 +47,5 @@ public enum InstituteCode {
 
     public Institute convertEntity() {
         return new Institute(this.instituteCode, this.instituteName);
-    }
-
-    public static List<Institute> convertEntities() {
-        List<Institute> entities = new ArrayList<>();
-        for (InstituteCode value : values()) {
-            entities.add(value.convertEntity());
-        }
-        return entities;
     }
 }

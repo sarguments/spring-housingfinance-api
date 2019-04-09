@@ -17,4 +17,10 @@ public class YearlyInstituteSupplyTest extends BaseTest {
         int totalAmount = 31480;
         softly.assertThat(yis.calcTotalAmount()).isEqualTo(totalAmount);
     }
+
+    @Test
+    public void is12Months() {
+        YearlyInstituteSupply yis = YEARLY_INSTITUTE_SUPPLY_FIXTURE_3;
+        softly.assertThat(yis.is12Months()).isFalse();
+    }
 }

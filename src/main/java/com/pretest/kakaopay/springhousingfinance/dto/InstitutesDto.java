@@ -1,9 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.dto;
 
-import com.pretest.kakaopay.springhousingfinance.domain.institute.Institute;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class InstitutesDto {
     private String name;

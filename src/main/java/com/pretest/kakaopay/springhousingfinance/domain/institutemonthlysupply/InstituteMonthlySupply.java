@@ -72,7 +72,6 @@ public class InstituteMonthlySupply {
                 ", instituteCode='" + instituteCode + '\'' +
                 ", month=" + month +
                 ", monthlyData=" + monthlyData +
-                ", yearlyInstituteSupply=" + yearlyInstituteSupply +
                 '}';
     }
 }

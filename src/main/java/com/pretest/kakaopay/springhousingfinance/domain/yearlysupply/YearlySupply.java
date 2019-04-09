@@ -2,7 +2,6 @@ package com.pretest.kakaopay.springhousingfinance.domain.yearlysupply;
 
 import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
 import com.pretest.kakaopay.springhousingfinance.dto.YearlySupplyDto;
-import com.pretest.kakaopay.support.domain.AbstractDomain;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -11,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class YearlySupply extends AbstractDomain {
+public class YearlySupply {
     @Id
     private int year;
 
@@ -20,6 +19,13 @@ public class YearlySupply extends AbstractDomain {
 
     @Transient
     private Map<String, Integer> detailAmount;
+
+    @Transient
+    private String maximumSupplyBank;
+
+    @Transient
+    private int maximumSupplyValue;
+
 
     public YearlySupply() {
     }
@@ -42,20 +48,33 @@ public class YearlySupply extends AbstractDomain {
         for (YearlyInstituteSupply iys : yearlyInstituteSupplies) {
             detailAmount.put(iys.findInstituteName(), iys.calcTotalAmount());
         }
+
         return this.detailAmount = detailAmount;
     }
 
+
     public int calcTotalAmount() {
         int totalAmount = 0;
-        for (String name : this.detailAmount.keySet()) {
-            totalAmount += this.detailAmount.get(name);
+        this.maximumSupplyValue = 0;
+        this.maximumSupplyBank = "none";
+
+        for (String bank : this.detailAmount.keySet()) {
+            totalAmount += this.detailAmount.get(bank);
+            if (this.maximumSupplyValue < detailAmount.get(bank)) {
+                this.maximumSupplyValue = detailAmount.get(bank);
+                this.maximumSupplyBank = bank;
+            }
         }
         return totalAmount;
     }
 
-    @Override
     public YearlySupplyDto toDto() {
-        return new YearlySupplyDto(this.year, calcDetailAmount(), calcTotalAmount());
+        return new YearlySupplyDto(this.year,
+                calcDetailAmount(),
+                calcTotalAmount(),
+                this.maximumSupplyBank,
+                this.maximumSupplyValue
+        );
     }
 
     @Override
