@@ -1,5 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.web;
 
+import com.pretest.kakaopay.springhousingfinance.dto.YearMaxSupplyInstituteDto;
 import com.pretest.kakaopay.springhousingfinance.dto.YearlySuppliesDto;
 import com.pretest.kakaopay.springhousingfinance.service.YearlySupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,12 @@ public class YearlySupplyController {
     @GetMapping
     public YearlySuppliesDto yearlySupplies() {
         return yearlySupplyService.yearlySupplies();
+    }
+
+
+    @GetMapping("/institutes/max")
+    public YearMaxSupplyInstituteDto yearMaxSupplyInstitute() {
+        return yearlySupplyService.findYearMaxSupplyInstitute();
     }
 
 

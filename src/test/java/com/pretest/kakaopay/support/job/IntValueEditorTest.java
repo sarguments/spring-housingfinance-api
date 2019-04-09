@@ -1,4 +1,4 @@
-package com.pretest.kakaopay.support.util.job;
+package com.pretest.kakaopay.support.job;
 
 import com.pretest.kakaopay.springhousingfinance.job.IntValueEditor;
 import com.pretest.kakaopay.support.test.BaseTest;

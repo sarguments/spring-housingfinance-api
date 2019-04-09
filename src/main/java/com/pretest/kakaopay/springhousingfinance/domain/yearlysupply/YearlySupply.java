@@ -2,6 +2,7 @@ package com.pretest.kakaopay.springhousingfinance.domain.yearlysupply;
 
 import com.pretest.kakaopay.springhousingfinance.domain.yearlyinstitutesupply.YearlyInstituteSupply;
 import com.pretest.kakaopay.springhousingfinance.dto.YearlySupplyDto;
+import com.pretest.kakaopay.support.domain.AbstractDomain;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class YearlySupply {
+public class YearlySupply extends AbstractDomain {
     @Id
     private int year;
 
@@ -52,6 +53,7 @@ public class YearlySupply {
         return totalAmount;
     }
 
+    @Override
     public YearlySupplyDto toDto() {
         return new YearlySupplyDto(this.year, calcDetailAmount(), calcTotalAmount());
     }

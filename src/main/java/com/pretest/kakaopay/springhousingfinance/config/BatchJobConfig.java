@@ -6,7 +6,7 @@ import com.pretest.kakaopay.springhousingfinance.job.CsvDataProcessor;
 import com.pretest.kakaopay.springhousingfinance.job.CsvDataReaderBuilder;
 import com.pretest.kakaopay.springhousingfinance.vo.InstituteCode;
 
-import static com.pretest.kakaopay.support.util.job.LineGenerator.*;
+import static com.pretest.kakaopay.support.job.LineGenerator.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

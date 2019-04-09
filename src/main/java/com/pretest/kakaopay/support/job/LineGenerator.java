@@ -1,4 +1,4 @@
-package com.pretest.kakaopay.support.util.job;
+package com.pretest.kakaopay.support.job;
 
 import java.util.ArrayList;
 import java.util.Arrays;

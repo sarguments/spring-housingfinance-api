@@ -1,12 +1,13 @@
 package com.pretest.kakaopay.springhousingfinance.domain.institute;
 
 import com.pretest.kakaopay.springhousingfinance.dto.InstituteDto;
+import com.pretest.kakaopay.support.domain.AbstractDomain;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Institute {
+public class Institute extends AbstractDomain {
     @Id
     private String instituteCode;
 
@@ -48,6 +49,7 @@ public class Institute {
                 '}';
     }
 
+    @Override
     public InstituteDto toDto() {
         return new InstituteDto(this.instituteName, this.instituteCode);
     }

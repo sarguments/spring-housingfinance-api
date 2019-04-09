@@ -2,7 +2,7 @@ package com.pretest.kakaopay.springhousingfinance.job;
 
 import com.pretest.kakaopay.springhousingfinance.domain.institutemonthlysupply.InstituteMonthlySupply;
 import com.pretest.kakaopay.springhousingfinance.dto.CsvDataDto;
-import com.pretest.kakaopay.support.util.job.EntityGenerator;
+import com.pretest.kakaopay.support.job.EntityGenerator;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.List;

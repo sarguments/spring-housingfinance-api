@@ -12,13 +12,9 @@ public class InstitutesDto {
     public InstitutesDto() {
     }
 
-    public InstitutesDto(String name, List<Institute> rowData) {
+    public InstitutesDto(String name, List<InstituteDto> data) {
         this.name = name;
-        this.data = convertDto(rowData);
-    }
-
-    private List<InstituteDto> convertDto(List<Institute> rowData) {
-        return rowData.stream().map(i -> i.toDto()).collect(Collectors.toList());
+        this.data = data;
     }
 
     public void setName(String name) {

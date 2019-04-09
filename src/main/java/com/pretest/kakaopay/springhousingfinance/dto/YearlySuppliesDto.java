@@ -1,9 +1,6 @@
 package com.pretest.kakaopay.springhousingfinance.dto;
 
-import com.pretest.kakaopay.springhousingfinance.domain.yearlysupply.YearlySupply;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class YearlySuppliesDto {
     private String name;
@@ -12,13 +9,9 @@ public class YearlySuppliesDto {
     public YearlySuppliesDto() {
     }
 
-    public YearlySuppliesDto(String name, List<YearlySupply> rowData) {
+    public YearlySuppliesDto(String name, List<YearlySupplyDto> data) {
         this.name = name;
-        this.data = convertDto(rowData);
-    }
-
-    private List<YearlySupplyDto> convertDto(List<YearlySupply> rowData) {
-        return rowData.stream().map(y -> y.toDto()).collect(Collectors.toList());
+        this.data = data;
     }
 
     public String getName() {

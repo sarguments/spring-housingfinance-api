@@ -17,7 +17,7 @@ public class InstituteController {
 
     @GetMapping
     public InstitutesDto instititutes() {
-        return instituteService.insititutes();
+        return instituteService.findAll();
     }
 
 
