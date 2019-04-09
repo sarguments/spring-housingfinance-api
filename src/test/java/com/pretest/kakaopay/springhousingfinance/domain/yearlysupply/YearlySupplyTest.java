@@ -13,11 +13,14 @@ public class YearlySupplyTest extends BaseTest {
         YearlySupply yearlySupply = YEARLY_SUPPLY_FIXTURE;
         YearlySupplyDto dto = yearlySupply.toDto();
         softly.assertThat(dto.getYear()).isEqualTo(2017);
+        softly.assertThat(dto.getTotalAmount()).isEqualTo(295126);
     }
 
     @Test
     public void calcTotalAmount() {
         YearlySupply yearlySupply = YEARLY_SUPPLY_FIXTURE;
+        yearlySupply.calcDetailAmount();
+
         int totalAmount = yearlySupply.calcTotalAmount();
         softly.assertThat(totalAmount).isEqualTo(295126);
     }

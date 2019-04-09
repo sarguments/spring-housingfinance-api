@@ -22,8 +22,8 @@ public class InstituteMonthlySupply {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
     @JoinColumns(value = {
-            @JoinColumn(name = "year", updatable = false, insertable = false),
-            @JoinColumn(name = "instituteCode", updatable = false, insertable = false)
+            @JoinColumn(name = "year", referencedColumnName = "year", updatable = false, insertable = false),
+            @JoinColumn(name = "instituteCode", referencedColumnName = "instituteCode", updatable = false, insertable = false)
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private YearlyInstituteSupply yearlyInstituteSupply;
 
@@ -43,6 +43,10 @@ public class InstituteMonthlySupply {
 
     public void setYearlyInstituteSupply(YearlyInstituteSupply yearlyInstituteSupply) {
         this.yearlyInstituteSupply = yearlyInstituteSupply;
+    }
+
+    public int getMonthlyData() {
+        return this.monthlyData;
     }
 
     @Override

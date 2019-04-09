@@ -14,8 +14,11 @@ public class YearlySupply {
     @Id
     private int year;
 
-    @OneToMany
-    private Set<YearlyInstituteSupply> instituteYearlySupplies;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "yearlySupply")
+    private Set<YearlyInstituteSupply> yearlyInstituteSupplies;
+
+    @Transient
+    private Map<String, Integer> detailAmount;
 
     public YearlySupply() {
     }
@@ -24,20 +27,33 @@ public class YearlySupply {
         this.year = year;
     }
 
-    public YearlySupply(int year, Set<YearlyInstituteSupply> instituteYearlySupplies) {
+    public YearlySupply(int year, Set<YearlyInstituteSupply> yearlyInstituteSupplies) {
         this.year = year;
-        this.instituteYearlySupplies = instituteYearlySupplies;
+        this.yearlyInstituteSupplies = yearlyInstituteSupplies;
     }
 
     public int getYear() {
         return this.year;
     }
 
-    @Override
-    public String toString() {
-        return "YearlySupply{" +
-                ", yearlysupply=" + year +
-                '}';
+    public Map<String, Integer> calcDetailAmount() {
+        Map<String, Integer> detailAmount = new HashMap<>();
+        for (YearlyInstituteSupply iys : yearlyInstituteSupplies) {
+            detailAmount.put(iys.findInstituteName(), iys.calcTotalAmount());
+        }
+        return this.detailAmount = detailAmount;
+    }
+
+    public int calcTotalAmount() {
+        int totalAmount = 0;
+        for (String name : this.detailAmount.keySet()) {
+            totalAmount += this.detailAmount.get(name);
+        }
+        return totalAmount;
+    }
+
+    public YearlySupplyDto toDto() {
+        return new YearlySupplyDto(this.year, calcDetailAmount(), calcTotalAmount());
     }
 
     @Override
@@ -51,19 +67,12 @@ public class YearlySupply {
         return Objects.hash(year);
     }
 
-    public YearlySupplyDto toDto() {
-        return new YearlySupplyDto(this.year, calcTotalAmount(), calcDetailAmount());
-    }
-
-    public Map<String, Integer> calcDetailAmount() {
-        Map<String, Integer> detailAmount = new HashMap<>();
-        for (YearlyInstituteSupply iys : instituteYearlySupplies) {
-            detailAmount.put(iys.findInstituteName(), iys.calcTotalAmount());
-        }
-        return null;
-    }
-
-    public int calcTotalAmount() {
-        return 0;
+    @Override
+    public String toString() {
+        return "YearlySupply{" +
+                "year=" + year +
+                ", yearlyInstituteSupplies=" + yearlyInstituteSupplies +
+                ", detailAmount=" + detailAmount +
+                '}';
     }
 }

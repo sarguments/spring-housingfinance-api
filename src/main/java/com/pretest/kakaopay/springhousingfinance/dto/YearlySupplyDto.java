@@ -10,7 +10,7 @@ public class YearlySupplyDto {
     public YearlySupplyDto() {
     }
 
-    public YearlySupplyDto(int year, int totalAmount, Map<String, Integer> detailAmount) {
+    public YearlySupplyDto(int year, Map<String, Integer> detailAmount, int totalAmount) {
         this.year = year;
         this.totalAmount = totalAmount;
         this.detailAmount = detailAmount;
@@ -26,5 +26,14 @@ public class YearlySupplyDto {
 
     public Map<String, Integer> getDetailAmount() {
         return detailAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "YearlySupplyDto{" +
+                "year=" + year +
+                ", totalAmount=" + totalAmount +
+                ", detailAmount=" + detailAmount +
+                '}';
     }
 }

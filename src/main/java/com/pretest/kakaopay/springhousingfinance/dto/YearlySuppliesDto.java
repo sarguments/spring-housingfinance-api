@@ -28,4 +28,12 @@ public class YearlySuppliesDto {
     public List<YearlySupplyDto> getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "YearlySuppliesDto{" +
+                "name='" + name + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

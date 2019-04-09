@@ -17,6 +17,6 @@ public class YearlySupplyService {
     private YearlySupplyRepository yearlySupplyRepository;
 
     public YearlySuppliesDto yearlySupplies() {
-        return new YearlySuppliesDto(YEARLY_SUPPLIES, yearlySupplyRepository.findAllWithInstitutes());
+        return new YearlySuppliesDto(YEARLY_SUPPLIES, yearlySupplyRepository.findAllWithMonthlySupplies());
     }
 }

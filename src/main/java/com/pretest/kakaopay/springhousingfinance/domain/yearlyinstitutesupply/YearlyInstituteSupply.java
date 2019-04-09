@@ -30,7 +30,7 @@ public class YearlyInstituteSupply {
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Institute institute;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "yearlyInstituteSupply")
     private Set<InstituteMonthlySupply> instituteMonthlySupplies;
 
     public YearlyInstituteSupply() {
@@ -63,6 +63,18 @@ public class YearlyInstituteSupply {
         this.institute = institute;
     }
 
+    public String findInstituteName() {
+        return InstituteCode.findName(this.instituteCode);
+    }
+
+    public int calcTotalAmount() {
+        int total = 0;
+        for (InstituteMonthlySupply instituteMonthlySupply : instituteMonthlySupplies)
+            total += instituteMonthlySupply.getMonthlyData();
+
+        return total;
+    }
+
     @Override
     public boolean equals(Object o) {
         YearlyInstituteSupply that = (YearlyInstituteSupply) o;
@@ -83,14 +95,5 @@ public class YearlyInstituteSupply {
                 ", yearlySupply=" + yearlySupply +
                 ", institute=" + institute +
                 '}';
-    }
-
-    public String findInstituteName() {
-        return InstituteCode.findName(this.instituteCode);
-    }
-
-    public int calcTotalAmount() {
-        int total = 0;
-        return 0;
     }
 }
