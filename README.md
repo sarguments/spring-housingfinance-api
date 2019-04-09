@@ -2,9 +2,9 @@
 
 ## 문제해결전략
 
-**엔티티 모델링**
+### Entity 설계
 
-- YearlySupply (연별 공급총액) : year로 키를 가짐
+- YearlySupply (연별 공급총액) : year를 키로 가짐
 ```
 id : year
 ```
@@ -28,15 +28,16 @@ id : institute_code
 id : month
 column : monthly_data
 ```
+**[엔티티 관계]**
 
 ##### `YearlySupply` 1 : n `YearlyInstituteSupply`
 ##### `Institute` 1 : n `YearlyInstituteSupply`
-##### `InstituteMonthlySupply` 1 : n `YearlyInstituteSupply`
+##### `InstituteMonthlySupply` n : 1 `YearlyInstituteSupply`
 
-
+#### 전략
 * [x] 데이터 파일(csv)에서 각 레코드를 데이터베이스에 저장
-    * 서버를 실행하는 시점에 csv 파일을 모두 읽어 `Entity`를 나누어 영속성을 부여하게 하기 위해 `Spring Data Batch`를 사용
-    * csv 파일을 읽고, Entity로 가공하고, DB에 저장하는 과정을 하나의 `Job`으로 설정
+    * 서버를 실행하는 시점에 csv 파일의 모든 행을 읽어 `Entity`를 분리하여 각각 영속성을 부여하게 하기 위해 `Spring Data Batch`를 사용
+    * csv 파일을 읽고, `Entity`로 가공하고, DB에 저장하는 과정을 하나의 `Step`으로 설정
         * csv 파일을 읽을 때, 특정 컬럼에 있는 `"`와`,`를 제거해 `Integer` 값으로 변환해 주는 `IntValueEditor`를 직접 만듦
         * process 과정 : 한 로우를 가장 작은 단위인 `InstituteMonthlySupply` Entity로 변환
         * write 과정 : `Entity`에 영속성을 부여하는 과정에서 중복으로 Entity가 생성되지 않도록 `EntityManager`의 merge() 사용
@@ -54,7 +55,7 @@ column : monthly_data
     * 각 연도별 각 기관의 전체 지원금액의 합을 객체(`YearlySupplyDto`)로 만들어 `Comparable`인터페이스를 구현해 크기 비교
 
 * [x] 전체 년도(2005~2016)에서 `특정은행`의 지원금액 평균 중에서 가장 작은 금액과 큰 금액을 출력
-    * 전체 년도 중 12달 이하인 년도는 비교대상에서 제외해야 함.
+    * 전체 년도 중 12달 이하의 공급월을 가지는 년도는 비교대상에서 제외해야 함.
     * `Entity`(도메인 역할)에서 `DTO`로 가공하는 과정에서 `stream().filter()`를 사용해 필터링
    
 
