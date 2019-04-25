@@ -25,7 +25,6 @@ public class YearlySupplyService {
     @Autowired
     private YearlySupplyRepository yearlySupplyRepository;
 
-    @Transactional
     private List<YearlySupply> findAllWithMonthlySupplies() {
         return yearlySupplyRepository.findAllWithMonthlySupplies();
     }

@@ -20,7 +20,7 @@ public class InstituteMonthlySupply {
     @Column
     private int monthlyData;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.MERGE)
     @JoinColumns(value = {
             @JoinColumn(name = "year", referencedColumnName = "year", updatable = false, insertable = false),
             @JoinColumn(name = "instituteCode", referencedColumnName = "instituteCode", updatable = false, insertable = false)

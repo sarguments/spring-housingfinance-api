@@ -93,7 +93,6 @@ public class BatchJobConfig {
             entityManager.merge(t);
         }
         entityManager.flush();
-        entityManager.close();
     }
 
 }

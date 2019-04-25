@@ -19,13 +19,13 @@ public class YearlyInstituteSupply {
     @Id
     private String instituteCode;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.MERGE)
     @JoinColumns(value = {
             @JoinColumn(name = "year", updatable = false, insertable = false)
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private YearlySupply yearlySupply;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.MERGE)
     @JoinColumns(value = {
             @JoinColumn(name = "instituteCode", updatable = false, insertable = false)
     }, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
